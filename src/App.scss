@@ -1,28 +1,203 @@
-.App {
-  text-align: center;
+//.App {
+//  text-align: center;
+//}
+//
+//.App-logo {
+//  animation: App-logo-spin infinite 20s linear;
+//  height: 80px;
+//}
+//
+//.App-header {
+//  background-color: #222;
+//  height: 150px;
+//  padding: 20px;
+//  color: white;
+//}
+//
+//.App-title {
+//  font-size: 1.5em;
+//}
+//
+//.App-intro {
+//  font-size: large;
+//}
+//
+//@keyframes App-logo-spin {
+//  from { transform: rotate(0deg); }
+//  to { transform: rotate(360deg); }
+//}
+
+
+html,
+body {
+  font-family: "Dosis", sans-serif;
+  font-size: 16px;
+  background: lightgrey;
+  margin: 0;
+  position: relative;
+  height: 100vh;
+  width: 100vw;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
+.header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 60px;
+  width: 100vw;
+  background: white;
+  maring: 0;
+  display: flex;
+  align-items: center;
+  font-size: 1.2rem;
+  z-index: 1000;
+  transition: all 0.3s cubic-bezier(.17,.67,.79,.32);
+  @media (min-width: 992px) {
+    font-size: 1rem;
+    top: 8px;
+    left: 8px;
+    width: 40vw;
+    border-radius: 2px;
+  }
+  &__back {
+    margin: 0 10px;
+    display: flex;
+    align-items: center;
+    width: 80px;
+    svg {
+      path {
+        fill: lightgrey;
+      }
+    }
+  }
+  &__title {
+    font-size: 1.2rem;
+    font-weight: 400;
+    text-align: center;
+    flex: 1;
+  }
+  &__save {
+    margin: 0 10px;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    color: lightgrey;
+    cursor: pointer;
+    width: 80px;
+    span {
+      padding: 0 10px;
+    }
+    svg {
+      path {
+        fill: #d9c999;
+      }
+    }
+  }
 }
 
-.App-header {
-  background-color: #222;
-  height: 150px;
-  padding: 20px;
-  color: white;
-}
-
-.App-title {
-  font-size: 1.5em;
-}
-
-.App-intro {
-  font-size: large;
-}
-
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+.cards {
+  position: absolute;
+  left: 5px;
+  bottom: 10px;
+  width: 100vw;
+  display: flex;
+  white-space: no-wrap;
+  overflow-x: scroll;
+  overflow-y: hidden;
+  .card {
+    height: 120px;
+    background: white;
+    display: flex;
+    align-items: center;
+    border-radius: 3px;
+    margin: 0 2px;
+    flex-shrink: 0;
+    width: calc(100vw - 20px);
+    @media (min-width:768px) {
+      width: calc(50vw - 10px);
+    }
+    @media (min-width:992px) {
+      width: calc(33.333vw - 10px);
+    }
+    &__img {
+      position: relative;
+      height: 80px;
+      width: 80px;
+      overflow: hidden;
+      border-radius: 3px;
+      margin: 0 20px;
+      img {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        height: 100%;
+        width: auto;
+        transform: translate(-50%, -50%);
+      }
+    }
+    &__content {
+      height: 80px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      // align-items: space-between;
+      &__title{
+        font-size: 1.2rem;
+        font-weight: 700;
+        margin: 0;
+      }
+      &__route{
+        font-size: 1rem;
+        font-weight: 500;
+        margin: 0;
+        color: grey;
+      }
+      &__size{
+        font-size: 0.9rem;
+        font-weight: 500;
+        margin: 0;
+        color: grey;
+        flex: 1;
+        padding-top: 18px;
+        white-space: nowrap;
+        span {
+          font-weight: 700;
+          padding-right: 10px;
+        }
+      }
+    }
+    &__price {
+      white-space: nowrap;
+      padding: 0 1.8rem;
+    }
+  }
+  &__push-right {
+    position: fixed;
+    right: -10px;
+    bottom: 45px;
+    height: 35px;
+    width: 35px;
+    background: white;
+    border-radius: 50%;
+    border: 2px solid rgba(0, 0, 0, 0.2);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: grey;
+  }
+  &__push-left {
+    // position: absolute;
+    // left: -20px;
+    // bottom: 40px;;
+    // height: 35px;
+    // width: 35px;
+    // background: white;
+    // border-radius: 50%;
+    // border: 2px solid rgba(0, 0, 0, 0.2);
+    // display: flex;
+    // justify-content: center;
+    // align-items: center;
+    // color: grey;
+  }
 }
