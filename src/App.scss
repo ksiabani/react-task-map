@@ -1,7 +1,10 @@
+$transition: all 0.3s ease-in;
+
 .App {
   overflow: hidden;
   position: relative;
 }
+
 //
 //.App-logo {
 //  animation: App-logo-spin infinite 20s linear;
@@ -28,16 +31,15 @@
 //  to { transform: rotate(360deg); }
 //}
 
-
 html,
 body {
   font-family: "Dosis", sans-serif;
   font-size: 16px;
-  background: lightgrey;
-  margin: 0;
-  position: relative;
-  height: 100vh;
-  width: 100vw;
+  //background: lightgrey;
+  //margin: 0;
+  //position: relative;
+  //height: 100vh;
+  //width: 100vw;
 }
 
 .header {
@@ -52,7 +54,7 @@ body {
   align-items: center;
   font-size: 1.2rem;
   z-index: 1000;
-  transition: all 0.3s cubic-bezier(.17,.67,.79,.32);
+  transition: $transition;
   backface-visibility: hidden;
   @media (min-width: 992px) {
     font-size: 1rem;
@@ -116,10 +118,13 @@ body {
     margin: 0 2px;
     flex-shrink: 0;
     width: calc(100vw - 20px);
-    @media (min-width:768px) {
+    transform: translateX(0);
+    transition: $transition;
+    cursor: pointer;
+    @media (min-width: 768px) {
       width: calc(50vw - 10px);
     }
-    @media (min-width:992px) {
+    @media (min-width: 992px) {
       width: calc(33.333vw - 10px);
     }
     &__img {
@@ -144,18 +149,18 @@ body {
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      &__title{
+      &__title {
         font-size: 1.2rem;
         font-weight: 700;
         margin: 0;
       }
-      &__route{
+      &__route {
         font-size: 1rem;
         font-weight: 500;
         margin: 0;
         color: grey;
       }
-      &__size{
+      &__size {
         font-size: 0.9rem;
         font-weight: 500;
         margin: 0;
@@ -177,7 +182,7 @@ body {
   &__push-right {
     position: fixed;
     right: -10px;
-    bottom: 45px;
+    bottom: 50px;
     height: 35px;
     width: 35px;
     background: white;
@@ -187,19 +192,29 @@ body {
     justify-content: center;
     align-items: center;
     color: grey;
+    cursor: pointer;
+    img {
+      height: 15px;
+      width: auto;
+    }
   }
   &__push-left {
-    // position: absolute;
-    // left: -20px;
-    // bottom: 40px;;
-    // height: 35px;
-    // width: 35px;
-    // background: white;
-    // border-radius: 50%;
-    // border: 2px solid rgba(0, 0, 0, 0.2);
-    // display: flex;
-    // justify-content: center;
-    // align-items: center;
-    // color: grey;
+    position: fixed;
+    left: -10px;
+    bottom: 50px;
+    height: 35px;
+    width: 35px;
+    background: white;
+    border-radius: 50%;
+    border: 2px solid rgba(0, 0, 0, 0.2);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: grey;
+    cursor: pointer;
+    img {
+      height: 15px;
+      width: auto;
+    }
   }
 }

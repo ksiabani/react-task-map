@@ -18,7 +18,10 @@ class Tasks extends Component {
             tasks: [],
             isLoading: false,
             error: null,
+            translateX: 0
         };
+        this.pushRight = this.pushRight.bind(this);
+        this.pushLeft = this.pushLeft.bind(this);
     }
 
     componentDidMount() {
@@ -39,8 +42,35 @@ class Tasks extends Component {
             .catch(error => this.setState({error, isLoading: false}));
     }
 
+
+    pushRight() {
+        let vw = window.innerWidth;
+        if (window.innerWidth >= 768) {
+            this.setState({translateX: this.state.translateX + vw / 2 - 10});
+        }
+        else if (window.innerWidth >= 992) {
+            this.setState({translateX: this.state.translateX + vw / 3 - 10});
+        }
+        else {
+            this.setState({translateX: this.state.translateX + vw - 20});
+        }
+    }
+
+    pushLeft() {
+        let vw = window.innerWidth;
+        if (window.innerWidth >= 768) {
+            this.setState({translateX: this.state.translateX - vw / 2 - 10});
+        }
+        else if (window.innerWidth >= 992) {
+            this.setState({translateX: this.state.translateX - vw / 3 - 10});
+        }
+        else {
+            this.setState({translateX: this.state.translateX - vw - 20});
+        }
+    }
+
     render() {
-        const {tasks, isLoading, error} = this.state;
+        const {tasks, isLoading, error, translateX} = this.state;
 
         if (error) {
             return <p>{error.message}</p>;
@@ -53,7 +83,7 @@ class Tasks extends Component {
         return (
             <div className="cards">
                 {tasks.map(task =>
-                    <div key={task.id} className="card">
+                    <div key={task.id} className="card" style={{transform: `translateX(-${translateX}px)`}}>
                         <div className="card__img">
                             <img
                                 src={task.picture_location}/>
@@ -68,8 +98,12 @@ class Tasks extends Component {
                         <div className="card__price">€ {task.task_price}</div>
                     </div>
                 )}
-                {/*   <div class="cards__push-left"><</div> */}
-                <div className="cards__push-right">&gt;</div>
+                <div className="cards__push-left" onClick={this.pushLeft}>
+                    <img src={ require('../../images/checkbox-arrow-left.png') } />
+                </div>
+                <div className="cards__push-right" onClick={this.pushRight}>
+                    <img src={ require('../../images/checkbox-arrow-right.png') } />
+                </div>
             </div>
         )
     }
