@@ -47,12 +47,13 @@ body {
   height: 60px;
   width: 100vw;
   background: white;
-  maring: 0;
+  margin: 0;
   display: flex;
   align-items: center;
   font-size: 1.2rem;
   z-index: 1000;
   transition: all 0.3s cubic-bezier(.17,.67,.79,.32);
+  backface-visibility: hidden;
   @media (min-width: 992px) {
     font-size: 1rem;
     top: 8px;

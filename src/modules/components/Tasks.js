@@ -1,6 +1,13 @@
 import React, {Component} from 'react';
 
 const url = 'https://api-test.nimber.com/jobs/filter.json?country_code=&date[type]=null&filter_visible=&from=Oslo&north_east=&order=DESC&page=1&per_page=20&place_search_method=&polyline=&search_types=pickup,delivery&size=null,1,2,3,4,5&sort=created_at&south_west=&state=buyable&X-API-Key=66467917eb9cee742b4f4c1f38419cca'
+const sizes = [
+    {size: "XS", description: "Fits in a pocket"},
+    {size: "S", description: "Fits in a bag"},
+    {size: "M", description: "Fits in a car"},
+    {size: "L", description: "Fits in a big car"},
+    {size: "XL", description: "Fits in a trailer"},
+];
 
 class Tasks extends Component {
 
@@ -49,16 +56,16 @@ class Tasks extends Component {
                     <div key={task.id} className="card">
                         <div className="card__img">
                             <img
-                                src="https://d1xqbpwl1wh09p.cloudfront.net/avatars/60/fa7c/c030229b/60fa7cc030229b12a9b17f7071e143e5.jpg"/>
+                                src={task.picture_location}/>
                         </div>
                         <div className="card__content">
-                            <h2 className="card__content__title">iPhone SE</h2>
-                            <h3 className="card__content__route">Oslo → Oslo</h3>
+                            <h2 className="card__content__title">{task.title}</h2>
+                            <h3 className="card__content__route">{task.pickup_city} → {task.delivery_city}</h3>
                             <h4 className="card__content__size">
-                                <span>XL</span>Fits in a big trailer
+                                <span>{sizes[task.size - 1].size}</span>{sizes[task.size - 1].description}
                             </h4>
                         </div>
-                        <div className="card__price">€ 140</div>
+                        <div className="card__price">€ {task.task_price}</div>
                     </div>
                 )}
                 {/*   <div class="cards__push-left"><</div> */}
@@ -69,3 +76,5 @@ class Tasks extends Component {
 }
 
 export default Tasks;
+
+
