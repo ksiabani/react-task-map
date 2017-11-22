@@ -1,6 +1,7 @@
-//.App {
-//  text-align: center;
-//}
+.App {
+  overflow: hidden;
+  position: relative;
+}
 //
 //.App-logo {
 //  animation: App-logo-spin infinite 20s linear;
@@ -99,11 +100,12 @@ body {
   position: absolute;
   left: 5px;
   bottom: 10px;
-  width: 100vw;
+  //width: 100vw;
   display: flex;
-  white-space: no-wrap;
-  overflow-x: scroll;
-  overflow-y: hidden;
+  white-space: nowrap;
+  //overflow-x: scroll;
+  //overflow-y: hidden;
+  overflow: hidden;
   .card {
     height: 120px;
     background: white;
@@ -141,7 +143,6 @@ body {
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      // align-items: space-between;
       &__title{
         font-size: 1.2rem;
         font-weight: 700;
