@@ -22,10 +22,13 @@ class Tasks extends Component {
         };
         this.pushRight = this.pushRight.bind(this);
         this.pushLeft = this.pushLeft.bind(this);
+        this.updateCardsPosition = this.updateCardsPosition.bind(this);
     }
 
     componentDidMount() {
         this.setState({isLoading: true});
+        this.updateCardsPosition();
+        window.addEventListener('resize', this.updateCardsPosition);
 
         fetch(url)
             .then(response => {
@@ -42,31 +45,36 @@ class Tasks extends Component {
             .catch(error => this.setState({error, isLoading: false}));
     }
 
+    componentWillUnmount() {
+        window.removeEventListener('resize', this.updateCardsPosition);
+    }
+
+    updateCardsPosition() {
+        this.setState({translateX: 0});
+    }
+
+    getCardWidth(vw) {
+        if (vw >= 768 && vw < 992) {
+            return  vw / 2 - 10;
+        }
+        else if (vw >= 992) {
+            return vw / 3 - 10;
+        }
+        return vw - 20;
+    }
 
     pushRight() {
         let vw = window.innerWidth;
-        if (window.innerWidth >= 768) {
-            this.setState({translateX: this.state.translateX + vw / 2 - 10});
-        }
-        else if (window.innerWidth >= 992) {
-            this.setState({translateX: this.state.translateX + vw / 3 - 10});
-        }
-        else {
-            this.setState({translateX: this.state.translateX + vw - 20});
+        let cardsWidth = this.getCardWidth(vw)*4;
+        let newTranslateX = this.state.translateX + this.getCardWidth(vw);
+        if (newTranslateX <= cardsWidth - vw + 20) { // 20 is the margins
+            this.setState({translateX: this.state.translateX + this.getCardWidth(vw)});
         }
     }
 
     pushLeft() {
         let vw = window.innerWidth;
-        if (window.innerWidth >= 768) {
-            this.setState({translateX: this.state.translateX - vw / 2 - 10});
-        }
-        else if (window.innerWidth >= 992) {
-            this.setState({translateX: this.state.translateX - vw / 3 - 10});
-        }
-        else {
-            this.setState({translateX: this.state.translateX - vw - 20});
-        }
+        this.setState({translateX: this.state.translateX - this.getCardWidth(vw)});
     }
 
     render() {

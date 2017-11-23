@@ -110,7 +110,7 @@ body {
   //overflow-y: hidden;
   overflow: hidden;
   .card {
-    height: 120px;
+    height: 100px;
     background: white;
     display: flex;
     align-items: center;
@@ -182,7 +182,7 @@ body {
   &__push-right {
     position: fixed;
     right: -10px;
-    bottom: 50px;
+    bottom: 41px;
     height: 35px;
     width: 35px;
     background: white;
@@ -201,7 +201,7 @@ body {
   &__push-left {
     position: fixed;
     left: -10px;
-    bottom: 50px;
+    bottom: 41px;
     height: 35px;
     width: 35px;
     background: white;
