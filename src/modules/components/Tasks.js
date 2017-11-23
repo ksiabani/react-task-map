@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 
-const url = 'https://api-test.nimber.com/jobs/filter.json?country_code=&date[type]=null&filter_visible=&from=Oslo&north_east=&order=DESC&page=1&per_page=20&place_search_method=&polyline=&search_types=pickup,delivery&size=null,1,2,3,4,5&sort=created_at&south_west=&state=buyable&X-API-Key=66467917eb9cee742b4f4c1f38419cca'
 const sizes = [
     {size: "XS", description: "Fits in a pocket"},
     {size: "S", description: "Fits in a bag"},
@@ -15,9 +14,6 @@ class Tasks extends Component {
         super(props);
 
         this.state = {
-            tasks: [],
-            isLoading: false,
-            error: null,
             translateX: 0,
             // TODO: Better off with a class with opacity + visibility + transitions
             displayLeftButton: 'none',
@@ -29,23 +25,8 @@ class Tasks extends Component {
     }
 
     componentDidMount() {
-        this.setState({isLoading: true});
         this.updateCardsPosition();
         window.addEventListener('resize', this.updateCardsPosition);
-
-        fetch(url)
-            .then(response => {
-                if (response.ok) {
-                    return response.json();
-                } else {
-                    throw new Error('Something went wrong ...');
-                }
-            })
-            .then(data => this.setState({
-                tasks: data,
-                isLoading: false
-            }))
-            .catch(error => this.setState({error, isLoading: false}));
     }
 
     componentWillUnmount() {
@@ -86,7 +67,8 @@ class Tasks extends Component {
     }
 
     render() {
-        const {tasks, isLoading, error, translateX, displayLeftButton, displayRightButton} = this.state;
+        const {tasks, isLoading, error} = this.props;
+        const {translateX, displayLeftButton, displayRightButton} = this.state;
 
         if (error) {
             return <p>{error.message}</p>;
