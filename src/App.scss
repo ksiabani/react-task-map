@@ -101,8 +101,9 @@ body {
 
 .cards {
   position: absolute;
-  left: 5px;
+  left: 0;
   bottom: 10px;
+  padding-left: 5px;
   //width: 100vw;
   height: 110px;
   display: flex;
@@ -119,15 +120,18 @@ body {
     border-radius: 3px;
     margin: 0 2px;
     flex-shrink: 0;
-    width: calc(100vw - 20px);
+    width: calc(100vw - 14px); // 5px left + 4px margins + 5px right
     transform: translateX(0);
     transition: $transition;
     cursor: pointer;
     @media (min-width: 768px) {
-      width: calc(50vw - 10px);
+      width: calc((100vw - 10px)/2 - 4px); // (vw - 10px)/ no of cards - margins
     }
     @media (min-width: 992px) {
-      width: calc(33.333vw - 10px);
+      width: calc((100vw - 10px)/3 - 4px);
+    }
+    @media (min-width: 1200px) {
+      width: calc((100vw - 10px)/4 - 4px);
     }
     // Lift up card when active or on hover but only on desktop
     @media (hover:hover) {
@@ -199,7 +203,7 @@ body {
     width: 35px;
     background: white;
     border-radius: 50%;
-    border: 2px solid rgba(0, 0, 0, 0.2);
+    border: 2px solid rgba(0, 0, 0, 0.1);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -225,7 +229,7 @@ body {
     width: 35px;
     background: white;
     border-radius: 50%;
-    border: 2px solid rgba(0, 0, 0, 0.2);
+    border: 2px solid rgba(0, 0, 0, 0.1);
     display: flex;
     justify-content: center;
     align-items: center;

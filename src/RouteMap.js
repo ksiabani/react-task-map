@@ -49,7 +49,7 @@ const MapWithADirectionsRenderer = compose(
             // TODO: Do I need this timeout?
             // const activeTask = _.find(tasks, {'id': activeTaskId});
             // const activeTask = tasks.find(task => task.id === activeTaskId);
-            console.log(activeTask);
+            // console.log(activeTask);
             setTimeout(() => {
                 DirectionsService.route({
                     origin: new google.maps.LatLng(activeTask.pickup_lat, activeTask.pickup_lng),
@@ -67,13 +67,13 @@ const MapWithADirectionsRenderer = compose(
             }, 0);
         },
         componentWillReceiveProps(props) {
-            console.log(props);
+            // console.log(props);
             this.setState({
                 activeTaskId: props.activeTaskId,
                 activeTask: props.tasks.find(task => task.id === props.activeTaskId)
             });
             const activeTask = props.tasks.find(task => task.id === props.activeTaskId);
-            console.log(props.activeTaskId, activeTask);
+            // console.log(props.activeTaskId, activeTask);
             const DirectionsService = new google.maps.DirectionsService();
             setTimeout(() => {
                 DirectionsService.route({

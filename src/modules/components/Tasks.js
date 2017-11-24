@@ -33,30 +33,35 @@ class Tasks extends Component {
     }
 
     updateCardsPosition() {
+        let vw = window.innerWidth;
+        let cardsWidth = this.getCardWidth(vw) * 4;
         this.setState({
             translateX: 0,
             isPushLeftVisible: false,
-            isPushRightVisible: true
+            isPushRightVisible: vw < cardsWidth
         });
     }
 
     getCardWidth(vw) {
         if (vw >= 768 && vw < 992) {
-            return  vw / 2 - 10;
+            return ((vw - 10) / 2) - 4; //(vw - 10px)/ no of cards - margins
         }
-        else if (vw >= 992) {
-            return vw / 3 - 10;
+        else if (vw >= 992 && vw < 1200) {
+            return ((vw - 10) / 3) - 4;
         }
-        return vw - 20;
+        else if (vw >= 1200) {
+            return ((vw - 10) / 4) - 4;
+        }
+        return vw - 14;
     }
 
     pushRight() {
         let vw = window.innerWidth;
-        let cardsWidth = this.getCardWidth(vw)*4;
+        let cardsWidth = this.getCardWidth(vw) * 4;
         let newTranslateX = this.state.translateX + this.getCardWidth(vw);
-        // TODO: Come up with a better formula
-        if (newTranslateX <= cardsWidth - vw + 31) { // 30 is the margins
-            this.setState({translateX: this.state.translateX + this.getCardWidth(vw)});
+        // While remaining card space is smaller than the viewport width
+        if (cardsWidth - newTranslateX >= vw - 22) {
+            this.setState({translateX: this.state.translateX + this.getCardWidth(vw) + 4});
         }
         if (newTranslateX > cardsWidth - vw) {
             this.setState({isPushRightVisible: false});
@@ -64,15 +69,24 @@ class Tasks extends Component {
         if (newTranslateX !== 0) {
             this.setState({isPushLeftVisible: true});
         }
-        // console.log(newTranslateX, cardsWidth, vw, cardsWidth - vw + 30);
     }
 
     pushLeft() {
         let vw = window.innerWidth;
-        this.setState({translateX: this.state.translateX - this.getCardWidth(vw)});
-        if (this.state.translateX === this.getCardWidth(vw)) {
+        let cardsWidth = this.getCardWidth(vw) * 4;
+        let newTranslateX = this.state.translateX - this.getCardWidth(vw) - 4;
+        this.setState({translateX: newTranslateX});
+        if (newTranslateX === 0) {
             this.setState({isPushLeftVisible: false});
         }
+        this.setState({isPushRightVisible: true});
+        // console.log(`
+        //     newTranslateX: ${newTranslateX},
+        //     cardsWidth: ${cardsWidth},
+        //     cardWidth: ${this.getCardWidth(vw)},
+        //     vw: ${vw}
+        // `);
+
     }
 
 
@@ -93,7 +107,7 @@ class Tasks extends Component {
                 {tasks.map(task =>
                     <div key={task.id} className={`card ${task.id === this.props.activeTaskId && 'is-active'}`}
                          onClick={this.props.getActiveTaskId.bind(this, task.id)}
-                         style={{transform: `translateX(-${translateX}px)`}}>
+                         style={{transform: `translateX(${translateX * -1}px)`}}>
                         <div className="card__img">
                             <img
                                 src={task.picture_location}/>
@@ -109,10 +123,10 @@ class Tasks extends Component {
                     </div>
                 )}
                 <div className={`cards__push-left ${isPushLeftVisible && 'is-visible'}`} onClick={this.pushLeft}>
-                    <img src={ require('../../images/checkbox-arrow-left.png') } />
+                    <img src={ require('../../images/checkbox-arrow-left.png') }/>
                 </div>
                 <div className={`cards__push-right ${isPushRightVisible && 'is-visible'}`} onClick={this.pushRight}>
-                    <img src={ require('../../images/checkbox-arrow-right.png') } />
+                    <img src={ require('../../images/checkbox-arrow-right.png') }/>
                 </div>
             </div>
         )
