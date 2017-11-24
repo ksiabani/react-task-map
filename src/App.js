@@ -50,7 +50,7 @@ class App extends Component {
             <div className="App">
                 <Header/>
                 <MapRoute tasks={tasks} isLoading={isLoading} error={error} activeTaskId={activeTaskId}/>
-                <Tasks tasks={tasks} isLoading={isLoading} error={error} getActiveTaskId={this.getActiveTaskId}/>
+                <Tasks tasks={tasks} isLoading={isLoading} error={error} activeTaskId={activeTaskId} getActiveTaskId={this.getActiveTaskId}/>
             </div>
         );
     }

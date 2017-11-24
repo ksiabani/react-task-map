@@ -1,4 +1,4 @@
-$transition: all 0.3s ease-in;
+$transition: all 0.2s ease-out;
 
 .App {
   overflow: hidden;
@@ -104,7 +104,9 @@ body {
   left: 5px;
   bottom: 10px;
   //width: 100vw;
+  height: 110px;
   display: flex;
+  align-items: flex-end;
   white-space: nowrap;
   //overflow-x: scroll;
   //overflow-y: hidden;
@@ -126,6 +128,15 @@ body {
     }
     @media (min-width: 992px) {
       width: calc(33.333vw - 10px);
+    }
+    // Lift up card when active or on hover but only on desktop
+    @media (hover:hover) {
+      &:hover{
+        margin-bottom: 8px; //not possible to use translate here
+      }
+      &.is-active {
+        margin-bottom: 8px; //not possible to use translate here
+      }
     }
     &__img {
       position: relative;

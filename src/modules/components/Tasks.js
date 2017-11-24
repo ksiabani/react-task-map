@@ -91,7 +91,7 @@ class Tasks extends Component {
         return (
             <div className="cards">
                 {tasks.map(task =>
-                    <div key={task.id} className="card"
+                    <div key={task.id} className={`card ${task.id === this.props.activeTaskId && 'is-active'}`}
                          onClick={this.props.getActiveTaskId.bind(this, task.id)}
                          style={{transform: `translateX(-${translateX}px)`}}>
                         <div className="card__img">
