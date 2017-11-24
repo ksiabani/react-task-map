@@ -16,8 +16,10 @@ class App extends Component {
         this.state = {
             tasks: [],
             isLoading: false,
-            error: null
+            error: null,
+            activeTaskId: 11931
         };
+        this.getActiveTaskId = this.getActiveTaskId.bind(this);
     }
 
     componentDidMount() {
@@ -37,13 +39,18 @@ class App extends Component {
             .catch(error => this.setState({error, isLoading: false}));
     }
 
+
+    getActiveTaskId(taskId) {
+        this.setState({activeTaskId: taskId});
+    }
+
     render() {
-        const {tasks, isLoading, error} = this.state;
+        const {tasks, isLoading, error, activeTaskId} = this.state;
         return (
             <div className="App">
                 <Header/>
-                <MapRoute tasks={tasks} isLoading={isLoading} error={error}/>
-                <Tasks tasks={tasks} isLoading={isLoading} error={error}/>
+                <MapRoute tasks={tasks} isLoading={isLoading} error={error} activeTaskId={activeTaskId}/>
+                <Tasks tasks={tasks} isLoading={isLoading} error={error} getActiveTaskId={this.getActiveTaskId}/>
             </div>
         );
     }

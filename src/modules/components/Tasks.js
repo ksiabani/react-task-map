@@ -64,7 +64,7 @@ class Tasks extends Component {
         if (newTranslateX !== 0) {
             this.setState({isPushLeftVisible: true});
         }
-        console.log(newTranslateX, cardsWidth, vw, cardsWidth - vw + 30);
+        // console.log(newTranslateX, cardsWidth, vw, cardsWidth - vw + 30);
     }
 
     pushLeft() {
@@ -74,6 +74,7 @@ class Tasks extends Component {
             this.setState({isPushLeftVisible: false});
         }
     }
+
 
     render() {
         const {tasks, isLoading, error} = this.props;
@@ -90,7 +91,9 @@ class Tasks extends Component {
         return (
             <div className="cards">
                 {tasks.map(task =>
-                    <div key={task.id} className="card" style={{transform: `translateX(-${translateX}px)`}}>
+                    <div key={task.id} className="card"
+                         onClick={this.props.getActiveTaskId.bind(this, task.id)}
+                         style={{transform: `translateX(-${translateX}px)`}}>
                         <div className="card__img">
                             <img
                                 src={task.picture_location}/>
