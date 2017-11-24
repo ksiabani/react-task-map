@@ -179,6 +179,7 @@ body {
       padding: 0 1.8rem;
     }
   }
+  // TODO create one push with two modifiers
   &__push-right {
     position: fixed;
     right: -10px;
@@ -193,9 +194,16 @@ body {
     align-items: center;
     color: grey;
     cursor: pointer;
+    opacity: 0;
+    visibility: hidden;
+    transition: $transition;
     img {
       height: 15px;
       width: auto;
+    }
+    &.is-visible {
+      opacity: 1;
+      visibility: visible;
     }
   }
   &__push-left {
@@ -212,9 +220,16 @@ body {
     align-items: center;
     color: grey;
     cursor: pointer;
+    opacity: 0;
+    visibility: hidden;
+    transition: $transition;
     img {
       height: 15px;
       width: auto;
+    }
+    &.is-visible {
+      opacity: 1;
+      visibility: visible;
     }
   }
 }

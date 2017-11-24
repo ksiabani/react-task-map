@@ -15,9 +15,8 @@ class Tasks extends Component {
 
         this.state = {
             translateX: 0,
-            // TODO: Better off with a class with opacity + visibility + transitions
-            displayLeftButton: 'none',
-            displayRightButton: 'flex'
+            isPushLeftVisible: false,
+            isPushRightVisible: true,
         };
         this.pushRight = this.pushRight.bind(this);
         this.pushLeft = this.pushLeft.bind(this);
@@ -34,7 +33,11 @@ class Tasks extends Component {
     }
 
     updateCardsPosition() {
-        this.setState({translateX: 0});
+        this.setState({
+            translateX: 0,
+            isPushLeftVisible: false,
+            isPushRightVisible: true
+        });
     }
 
     getCardWidth(vw) {
@@ -52,23 +55,29 @@ class Tasks extends Component {
         let cardsWidth = this.getCardWidth(vw)*4;
         let newTranslateX = this.state.translateX + this.getCardWidth(vw);
         // TODO: Come up with a better formula
-        if (newTranslateX <= cardsWidth - vw + 30) { // 30 is the margins
+        if (newTranslateX <= cardsWidth - vw + 31) { // 30 is the margins
             this.setState({translateX: this.state.translateX + this.getCardWidth(vw)});
         }
-        // console.log(newTranslateX, cardsWidth, vw, cardsWidth - vw + 30);
         if (newTranslateX > cardsWidth - vw) {
-            this.setState({displayRightButton: 'none'});
+            this.setState({isPushRightVisible: false});
         }
+        if (newTranslateX !== 0) {
+            this.setState({isPushLeftVisible: true});
+        }
+        console.log(newTranslateX, cardsWidth, vw, cardsWidth - vw + 30);
     }
 
     pushLeft() {
         let vw = window.innerWidth;
         this.setState({translateX: this.state.translateX - this.getCardWidth(vw)});
+        if (this.state.translateX === this.getCardWidth(vw)) {
+            this.setState({isPushLeftVisible: false});
+        }
     }
 
     render() {
         const {tasks, isLoading, error} = this.props;
-        const {translateX, displayLeftButton, displayRightButton} = this.state;
+        const {translateX, isPushLeftVisible, isPushRightVisible} = this.state;
 
         if (error) {
             return <p>{error.message}</p>;
@@ -96,10 +105,10 @@ class Tasks extends Component {
                         <div className="card__price">€ {task.task_price}</div>
                     </div>
                 )}
-                <div className="cards__push-left" style={{display: displayLeftButton}} onClick={this.pushLeft}>
+                <div className={`cards__push-left ${isPushLeftVisible && 'is-visible'}`} onClick={this.pushLeft}>
                     <img src={ require('../../images/checkbox-arrow-left.png') } />
                 </div>
-                <div className="cards__push-right" style={{display: displayRightButton}} onClick={this.pushRight}>
+                <div className={`cards__push-right ${isPushRightVisible && 'is-visible'}`} onClick={this.pushRight}>
                     <img src={ require('../../images/checkbox-arrow-right.png') } />
                 </div>
             </div>
