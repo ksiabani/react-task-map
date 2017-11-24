@@ -94,7 +94,7 @@ const MapWithADirectionsRenderer = compose(
         }
     })
 )(props => {
-    console.log(props);
+    // console.log(props);
     return (
         <GoogleMap
             ref={props.onMapMounted}

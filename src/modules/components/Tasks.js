@@ -16,7 +16,7 @@ class Tasks extends Component {
         this.state = {
             translateX: 0,
             isPushLeftVisible: false,
-            isPushRightVisible: true,
+            isPushRightVisible: true
         };
         this.pushRight = this.pushRight.bind(this);
         this.pushLeft = this.pushLeft.bind(this);
@@ -59,6 +59,12 @@ class Tasks extends Component {
         let vw = window.innerWidth;
         let cardsWidth = this.getCardWidth(vw) * 4;
         let newTranslateX = this.state.translateX + this.getCardWidth(vw);
+        let activeTask = this.props.tasks.find(task => task.id === this.props.activeTaskId);
+        let activeTaskIndex = this.props.tasks.indexOf(activeTask);
+        if (activeTaskIndex < 3 && vw < 768) {
+            let nextActiveTaskId = this.props.tasks[activeTaskIndex + 1].id;
+            this.props.getActiveTaskId(nextActiveTaskId);
+        }
         // While remaining card space is smaller than the viewport width
         if (cardsWidth - newTranslateX >= vw - 22) {
             this.setState({translateX: this.state.translateX + this.getCardWidth(vw) + 4});
@@ -69,6 +75,7 @@ class Tasks extends Component {
         if (newTranslateX !== 0) {
             this.setState({isPushLeftVisible: true});
         }
+
     }
 
     pushLeft() {
@@ -76,10 +83,17 @@ class Tasks extends Component {
         let cardsWidth = this.getCardWidth(vw) * 4;
         let newTranslateX = this.state.translateX - this.getCardWidth(vw) - 4;
         this.setState({translateX: newTranslateX});
+        let activeTask = this.props.tasks.find(task => task.id === this.props.activeTaskId);
+        let activeTaskIndex = this.props.tasks.indexOf(activeTask);
+        if (activeTaskIndex > 0 && vw < 768) {
+            let prevActiveTaskId = this.props.tasks[activeTaskIndex - 1].id;
+            this.props.getActiveTaskId(prevActiveTaskId);
+        }
         if (newTranslateX === 0) {
             this.setState({isPushLeftVisible: false});
         }
         this.setState({isPushRightVisible: true});
+
         // console.log(`
         //     newTranslateX: ${newTranslateX},
         //     cardsWidth: ${cardsWidth},
