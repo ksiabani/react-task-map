@@ -1,5 +1,5 @@
 /*global google*/
-import _ from "lodash";
+// import _ from "lodash";
 import React from "react";
 
 const {compose, withProps, lifecycle} = require("recompose");
@@ -7,6 +7,7 @@ const {
     withScriptjs,
     withGoogleMap,
     GoogleMap,
+    Marker,
     DirectionsRenderer
 } = require("react-google-maps");
 
@@ -75,7 +76,7 @@ const MapWithADirectionsRenderer = compose(
             const activeTask = props.tasks.find(task => task.id === props.activeTaskId);
             // console.log(props.activeTaskId, activeTask);
             const DirectionsService = new google.maps.DirectionsService();
-            setTimeout(() => {
+            // setTimeout(() => {
                 DirectionsService.route({
                     origin: new google.maps.LatLng(activeTask.pickup_lat, activeTask.pickup_lng),
                     destination: new google.maps.LatLng(activeTask.delivery_lat, activeTask.delivery_lng),
@@ -89,11 +90,11 @@ const MapWithADirectionsRenderer = compose(
                         console.error(`error fetching directions ${result}`);
                     }
                 });
-            }, 0);
+            // }, 0);
         }
     })
 )(props => {
-    // console.log(props);
+    console.log(props);
     return (
         <GoogleMap
             ref={props.onMapMounted}
@@ -101,7 +102,19 @@ const MapWithADirectionsRenderer = compose(
             center={props.center}
             onBoundsChanged={props.onBoundsChanged}
         >
-            {props.directions && <DirectionsRenderer directions={props.directions}/>}
+            {props.directions && <DirectionsRenderer defaultOptions={{"suppressMarkers":true}} directions={props.directions}/>}
+            <Marker
+                icon={{
+                    url: require('./images/icon-marker-a.png')
+                }}
+                position={{ lat: props.activeTask.pickup_lat, lng: props.activeTask.pickup_lng }}
+            />
+            <Marker
+                icon={{
+                    url: require('./images/icon-marker-b.png')
+                }}
+                position={{ lat: props.activeTask.delivery_lat, lng: props.activeTask.delivery_lng }}
+            />
         </GoogleMap>
     );
 });
