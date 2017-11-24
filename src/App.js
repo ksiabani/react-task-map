@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import logo from './logo.svg';
 import './App.css';
-import Map from './Map';
+// import Map from './Map';
 import MapRoute from './RouteMap';
 import Header from './modules/components/Header';
 import Tasks from './modules/components/Tasks';
@@ -42,7 +42,7 @@ class App extends Component {
         return (
             <div className="App">
                 <Header/>
-                <MapRoute/>
+                <MapRoute tasks={tasks} isLoading={isLoading} error={error}/>
                 <Tasks tasks={tasks} isLoading={isLoading} error={error}/>
             </div>
         );

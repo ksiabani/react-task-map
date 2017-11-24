@@ -4,12 +4,12 @@
   "private": true,
   "proxy": "https://api-test.nimber.com/",
   "dependencies": {
-    "node-sass-chokidar": "^0.0.3",
+    "node-sass-chokidar": "0.0.3",
     "npm-run-all": "^4.1.2",
     "react": "^16.1.1",
     "react-dom": "^16.1.1",
-    "react-google-maps": "^9.2.2",
-    "react-scripts": "1.0.17"
+    "react-google-maps": "^9.3.0",
+    "react-scripts": "^1.0.17"
   },
   "scripts": {
     "build-css": "node-sass-chokidar src/ -o src/",
