@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import Loader from 'react-loaders';
-import MapRoute from './RouteMap';
+import Map from './modules/components/Map';
 import Header from './modules/components/Header';
 import Tasks from './modules/components/Tasks';
 import './App.css';
@@ -38,7 +38,6 @@ class App extends Component {
             .catch(error => this.setState({error, isLoading: false}));
     }
 
-
     getActiveTaskId(taskId) {
         this.setState({activeTaskId: taskId});
     }
@@ -49,7 +48,7 @@ class App extends Component {
             <div className="app">
                 {isLoading && <Loader type="ball-pulse-sync" active={true} />}
                 {!isLoading && <Header/>}
-                {!isLoading && <MapRoute tasks={tasks} activeTaskId={activeTaskId}/>}
+                {!isLoading && <Map tasks={tasks} activeTaskId={activeTaskId}/>}
                 {!isLoading && <Tasks tasks={tasks} activeTaskId={activeTaskId} getActiveTaskId={this.getActiveTaskId}/>}
             </div>
         );
