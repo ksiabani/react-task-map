@@ -13,7 +13,7 @@
     #VARIABLES
 \*------------------------------------*/
 $brand-color: #e54530;
-$primary-color: #31B863;
+$primary-color: $brand-color;
 $background-color: #E8E9EB;
 $transition: all 0.2s ease-out;
 $box-shadow: 0 1px 2px 1px rgba(0, 0, 0, 0.2);
