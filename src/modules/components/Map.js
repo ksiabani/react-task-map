@@ -11,6 +11,7 @@ const {
 } = require("react-google-maps");
 
 const MapWithADirectionsRenderer = compose(
+    // Pass Google Maps API key and provide needed elenents
     withProps({
         googleMapURL: "https://maps.googleapis.com/maps/api/js?key=AIzaSyBTvSpXxGotw0ZHxb-LB1W37kOzu_Q0b2s&v=3.exp&libraries=geometry,drawing,places",
         loadingElement: <div style={{height: `100vh`}}/>,
@@ -22,15 +23,18 @@ const MapWithADirectionsRenderer = compose(
     lifecycle({
         componentWillMount() {
             const refs = {};
+            // Get active task here, will pass coordinates in a moment. Also set initial center
             this.setState({
                 activeTaskId: this.props.activeTaskId,
                 activeTask: this.props.tasks.find(task => task.id === this.props.activeTaskId),
                 center: {
                     lat: 59.91109599999999, lng: 10.7673005
                 },
+                // Get the map instance here
                 onMapMounted: ref => {
                     refs.map = ref;
                 },
+                // Attempt to recenter on resize, the library contains a bug, won't work
                 onBoundsChanged: () => {
                     this.setState({
                         center: refs.map.getCenter()
@@ -39,6 +43,8 @@ const MapWithADirectionsRenderer = compose(
             })
         },
         componentDidMount() {
+            // Call the Directions API and pass the coordinates for pickup and delivery.
+            // This happens on component load
             const DirectionsService = new google.maps.DirectionsService();
             const activeTask = this.state.activeTask;
             DirectionsService.route({
@@ -61,9 +67,9 @@ const MapWithADirectionsRenderer = compose(
                 activeTask: props.tasks.find(task => task.id === props.activeTaskId)
             });
             const activeTask = props.tasks.find(task => task.id === props.activeTaskId);
-            // console.log(props.activeTaskId, activeTask);
             const DirectionsService = new google.maps.DirectionsService();
-            // setTimeout(() => {
+            // Call the Directions API again. This time component state change (user clicks a card)
+            // Should move this to a function on its own, didn't
             DirectionsService.route({
                 origin: new google.maps.LatLng(activeTask.pickup_lat, activeTask.pickup_lng),
                 destination: new google.maps.LatLng(activeTask.delivery_lat, activeTask.delivery_lng),
@@ -80,6 +86,7 @@ const MapWithADirectionsRenderer = compose(
         }
     })
 )(props =>
+        // Call Google Maps passing default values
         <GoogleMap
             ref={props.onMapMounted}
             defaultZoom={14}
@@ -88,6 +95,7 @@ const MapWithADirectionsRenderer = compose(
             onBoundsChanged={props.onBoundsChanged}
         >
             {props.directions && <DirectionsRenderer defaultOptions={{"suppressMarkers": true}} directions={props.directions}/>}
+            // Add our custom markers here. The library has another bug and won't place the second marker correctly
             <Marker
                 icon={{
                     url: require('../../images/icon-marker-a.png')
@@ -103,20 +111,11 @@ const MapWithADirectionsRenderer = compose(
         </GoogleMap>
 );
 
-
+// Finally render the whole thing with Google maps, directions and custom markers
 class Map extends React.PureComponent {
 
     render() {
         const {tasks, isLoading, error, activeTaskId} = this.props;
-        // console.log(this.props)
-
-        if (error) {
-            return <p>{error.message}</p>;
-        }
-
-        if (isLoading) {
-            return <p>Loading ...</p>;
-        }
         return (
             <MapWithADirectionsRenderer tasks={tasks} activeTaskId={activeTaskId}/>
         )

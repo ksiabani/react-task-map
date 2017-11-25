@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 
+// A constant to keep sizes and size descriptions (missing from API?)
 const sizes = [
     {size: "XS", description: "Fits in a pocket"},
     {size: "S", description: "Fits in a bag"},
@@ -12,7 +13,7 @@ class Tasks extends Component {
 
     constructor(props) {
         super(props);
-
+        // Initial state for tasks
         this.state = {
             translateX: 0,
             isPushLeftVisible: false,
@@ -24,6 +25,7 @@ class Tasks extends Component {
     }
 
     componentDidMount() {
+        // Re-position cards on window resize
         this.updateCardsPosition();
         window.addEventListener('resize', this.updateCardsPosition);
     }
@@ -33,6 +35,7 @@ class Tasks extends Component {
     }
 
     updateCardsPosition() {
+        // Re-position cards
         let vw = window.innerWidth;
         let cardsWidth = this.getCardWidth(vw) * 4;
         this.setState({
@@ -43,6 +46,8 @@ class Tasks extends Component {
     }
 
     getCardWidth(vw) {
+        // A simple algorithm to get card's width at a given resolution.
+        // It's used to position cards on navigation (user clicks left or right nav buttons)
         if (vw >= 768 && vw < 992) {
             return ((vw - 10) / 2) - 4; //(vw - 10px)/ no of cards - margins
         }
@@ -56,6 +61,7 @@ class Tasks extends Component {
     }
 
     pushRight() {
+        // Move cards accordingly when user clicks the right nav button
         let vw = window.innerWidth;
         let cardsWidth = this.getCardWidth(vw) * 4;
         let newTranslateX = this.state.translateX + this.getCardWidth(vw);
@@ -69,16 +75,18 @@ class Tasks extends Component {
         if (cardsWidth - newTranslateX >= vw - 22) {
             this.setState({translateX: this.state.translateX + this.getCardWidth(vw) + 4});
         }
+        // End of cards space, hide right nav button
         if (newTranslateX > cardsWidth - vw) {
             this.setState({isPushRightVisible: false});
         }
+        // Show left nav button
         if (newTranslateX !== 0) {
             this.setState({isPushLeftVisible: true});
         }
-
     }
 
     pushLeft() {
+        // Move cards accordingly when user clicks the left nav button
         let vw = window.innerWidth;
         let cardsWidth = this.getCardWidth(vw) * 4;
         let newTranslateX = this.state.translateX - this.getCardWidth(vw) - 4;
@@ -89,33 +97,19 @@ class Tasks extends Component {
             let prevActiveTaskId = this.props.tasks[activeTaskIndex - 1].id;
             this.props.getActiveTaskId(prevActiveTaskId);
         }
+        // Back to start, hide left nav button
         if (newTranslateX === 0) {
             this.setState({isPushLeftVisible: false});
         }
+        // Show right nav button
         this.setState({isPushRightVisible: true});
-
-        // console.log(`
-        //     newTranslateX: ${newTranslateX},
-        //     cardsWidth: ${cardsWidth},
-        //     cardWidth: ${this.getCardWidth(vw)},
-        //     vw: ${vw}
-        // `);
-
     }
 
 
+    // Rendering tasks card
     render() {
         const {tasks, isLoading, error} = this.props;
         const {translateX, isPushLeftVisible, isPushRightVisible} = this.state;
-
-        if (error) {
-            return <p>{error.message}</p>;
-        }
-
-        if (isLoading) {
-            return <p>Loading ...</p>;
-        }
-
         return (
             <div className="cards">
                 {tasks.map(task =>

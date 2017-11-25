@@ -12,6 +12,7 @@ class App extends Component {
     constructor(props) {
         super(props);
 
+        // Initial state
         this.state = {
             tasks: [],
             isLoading: false,
@@ -22,6 +23,7 @@ class App extends Component {
     }
 
     componentDidMount() {
+        // Prepare headers
         let myHeaders = new Headers();
         myHeaders.append('Access-Control-Allow-Origin', '*');
         let myInit = {
@@ -31,6 +33,8 @@ class App extends Component {
             cache: 'default'
         };
         this.setState({isLoading: true});
+
+        // Send GET with fetch and basic error handling
         fetch(endPoint, myInit)
             .then(response => {
                 if (response.ok) {
@@ -46,12 +50,20 @@ class App extends Component {
             .catch(error => this.setState({error, isLoading: false}));
     }
 
+    // Set active task id when on card click
     getActiveTaskId(taskId) {
         this.setState({activeTaskId: taskId});
     }
 
+    // App rendering happens here
     render() {
         const {tasks, isLoading, error, activeTaskId} = this.state;
+
+        // If something went wrong while fetching data from server, return error message
+        if (error) {
+            return <p>{error.message}</p>;
+        }
+        // Wait for fetched data before showing components. In the meantime, show a loader
         return (
             <div className="app">
                 {isLoading && <Loader type="ball-pulse-sync" active={true} />}
@@ -60,6 +72,7 @@ class App extends Component {
                 {!isLoading && <Tasks tasks={tasks} activeTaskId={activeTaskId} getActiveTaskId={this.getActiveTaskId}/>}
             </div>
         );
+
     }
 }
 
