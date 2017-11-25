@@ -22,8 +22,16 @@ class App extends Component {
     }
 
     componentDidMount() {
+        let myHeaders = new Headers();
+        myHeaders.append('Access-Control-Allow-Origin', '*');
+        let myInit = {
+            method: 'GET',
+            headers: myHeaders,
+            mode: 'cors',
+            cache: 'default'
+        };
         this.setState({isLoading: true});
-        fetch(endPoint)
+        fetch(endPoint, myInit)
             .then(response => {
                 if (response.ok) {
                     return response.json();
