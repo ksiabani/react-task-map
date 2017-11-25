@@ -147,7 +147,10 @@ body {
       width: calc((100vw - 10px) / 4 - 4px);
     }
     // Lift up card when active or on hover but only on desktop
-    @media (hover: hover) {
+    // (-moz-touch-enabled: 0) is added as @media (hover: hover) won't work on FF, see:
+    // https://developer.mozilla.org/en-US/docs/Web/CSS/@media/hover
+    // https://bugzilla.mozilla.org/show_bug.cgi?id=1035774
+    @media (hover: hover), (-moz-touch-enabled: 0) {
       &:hover {
         margin-bottom: 8px; //not possible to use translate here
         & .card__content__title {
@@ -259,6 +262,7 @@ body {
 .loader-hidden {
   display: none;
 }
+
 .loader-active {
   display: flex;
   justify-content: center;
