@@ -1,7 +1,6 @@
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 
-Below you will find some information on how to perform common tasks.<br>
-You can view a live demo [here](https://ksiabani.github.io/react-task-map/).
+Below you will find some information on how to perform common tasks. You can view a live demo [here](https://ksiabani.github.io/react-task-map/).
 
 ## Table of Contents
 
