@@ -4,11 +4,17 @@ Below you will find some information on how to perform common tasks. You can vie
 
 ## Table of Contents
 
+- [Setup](#setup)
 - [Folder Structure](#folder-structure)
 - [Available Scripts](#available-scripts)
   - [npm start](#npm-start)
   - [npm test](#npm-test)
   - [npm run build](#npm-run-build)
+
+## Setup
+* Clone this repo
+* Run `npm install` or `yarn install`
+* Browse to `localhost:3000`
 
 ## Folder Structure
 
