@@ -1,10 +1,9 @@
+$brand-color: #e54530;
+$primary-color: #31B863;
+$background-color: #E8E9EB;
+@import '../node_modules/loaders.css/src/animations/ball-pulse-sync.scss';
 $transition: all 0.2s ease-out;
-$box-shadow: 0 1px 2px 1px rgba(0,0,0,0.2);
-
-.App {
-  overflow: hidden;
-  position: relative;
-}
+$box-shadow: 0 1px 2px 1px rgba(0, 0, 0, 0.2);
 
 //
 //.App-logo {
@@ -36,6 +35,29 @@ html,
 body {
   font-family: "Dosis", sans-serif;
   font-size: 16px;
+  height: 100%;
+}
+
+#root {
+  height: 100%;
+}
+
+.App {
+  overflow: hidden;
+  position: relative;
+  height: 100%;
+}
+
+.loader-hidden {
+  display: none;
+}
+.loader-active {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  background: $background-color;
 }
 
 .header {
@@ -123,21 +145,27 @@ body {
     cursor: pointer;
     box-shadow: $box-shadow;
     @media (min-width: 768px) {
-      width: calc((100vw - 10px)/2 - 4px); // (vw - 10px)/ no of cards - margins
+      width: calc((100vw - 10px) / 2 - 4px); // (vw - 10px)/ no of cards - margins
     }
     @media (min-width: 992px) {
-      width: calc((100vw - 10px)/3 - 4px);
+      width: calc((100vw - 10px) / 3 - 4px);
     }
     @media (min-width: 1200px) {
-      width: calc((100vw - 10px)/4 - 4px);
+      width: calc((100vw - 10px) / 4 - 4px);
     }
     // Lift up card when active or on hover but only on desktop
-    @media (hover:hover) {
-      &:hover{
+    @media (hover: hover) {
+      &:hover {
         margin-bottom: 8px; //not possible to use translate here
+        & .card__content__title {
+          color: $brand-color;
+        }
       }
       &.is-active {
         margin-bottom: 8px; //not possible to use translate here
+        & .card__content__title {
+          color: $primary-color
+        }
       }
     }
     &__img {
