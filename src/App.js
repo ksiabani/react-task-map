@@ -46,7 +46,7 @@ class App extends Component {
     render() {
         const {tasks, isLoading, error, activeTaskId} = this.state;
         return (
-            <div className="App">
+            <div className="app">
                 {isLoading && <Loader type="ball-pulse-sync" active={true} />}
                 {!isLoading && <Header/>}
                 {!isLoading && <MapRoute tasks={tasks} activeTaskId={activeTaskId}/>}

@@ -1,35 +1,26 @@
+/*------------------------------------*\
+    #TABLE OF CONTENTS
+\*------------------------------------*/
+/**
+ * VARIABLES.................Variables
+ * BASE......................Reset & Base elements
+ * COMPONENTS................Components
+ * VENDOR....................3rd party styles
+ *
+ */
+
+/*------------------------------------*\
+    #VARIABLES
+\*------------------------------------*/
 $brand-color: #e54530;
 $primary-color: #31B863;
 $background-color: #E8E9EB;
-@import '../node_modules/loaders.css/src/animations/ball-pulse-sync.scss';
 $transition: all 0.2s ease-out;
 $box-shadow: 0 1px 2px 1px rgba(0, 0, 0, 0.2);
 
-//
-//.App-logo {
-//  animation: App-logo-spin infinite 20s linear;
-//  height: 80px;
-//}
-//
-//.App-header {
-//  background-color: #222;
-//  height: 150px;
-//  padding: 20px;
-//  color: white;
-//}
-//
-//.App-title {
-//  font-size: 1.5em;
-//}
-//
-//.App-intro {
-//  font-size: large;
-//}
-//
-//@keyframes App-logo-spin {
-//  from { transform: rotate(0deg); }
-//  to { transform: rotate(360deg); }
-//}
+/*------------------------------------*\
+    #BASE
+\*------------------------------------*/
 
 html,
 body {
@@ -42,23 +33,23 @@ body {
   height: 100%;
 }
 
-.App {
+.app {
   overflow: hidden;
   position: relative;
   height: 100%;
 }
 
-.loader-hidden {
-  display: none;
+.app * {
+  box-sizing: border-box;
 }
-.loader-active {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
-  width: 100%;
-  background: $background-color;
-}
+
+/*------------------------------------*\
+    #COMPONENTS
+\*------------------------------------*/
+
+/**
+* Header
+*/
 
 .header {
   position: absolute;
@@ -118,6 +109,10 @@ body {
   }
 }
 
+/**
+* Cards & nav buttons
+*/
+
 .cards {
   position: absolute;
   left: 0;
@@ -128,8 +123,6 @@ body {
   display: flex;
   align-items: flex-end;
   white-space: nowrap;
-  //overflow-x: scroll;
-  //overflow-y: hidden;
   overflow: hidden;
   .card {
     height: 100px;
@@ -220,10 +213,8 @@ body {
       padding: 0 1.8rem;
     }
   }
-  // TODO create one push with two modifiers
-  &__push-right {
+  &__push {
     position: fixed;
-    right: -10px;
     bottom: 41px;
     height: 35px;
     width: 35px;
@@ -246,31 +237,33 @@ body {
       opacity: 1;
       visibility: visible;
     }
-  }
-  &__push-left {
-    position: fixed;
-    left: -10px;
-    bottom: 41px;
-    height: 35px;
-    width: 35px;
-    background: white;
-    border-radius: 50%;
-    border: 2px solid rgba(0, 0, 0, 0.1);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: grey;
-    cursor: pointer;
-    opacity: 0;
-    visibility: hidden;
-    transition: $transition;
-    img {
-      height: 15px;
-      width: auto;
+    &--left {
+      left: -10px;
     }
-    &.is-visible {
-      opacity: 1;
-      visibility: visible;
+    &--right {
+      right: -10px;
     }
   }
+}
+
+/*------------------------------------*\
+    #VENDOR
+\*------------------------------------*/
+
+/**
+* Loaders.css
+*/
+
+@import '../node_modules/loaders.css/src/animations/ball-pulse-sync.scss';
+
+.loader-hidden {
+  display: none;
+}
+.loader-active {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  background: $background-color;
 }

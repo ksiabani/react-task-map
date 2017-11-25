@@ -136,10 +136,10 @@ class Tasks extends Component {
                         <div className="card__price">€ {task.task_price}</div>
                     </div>
                 )}
-                <div className={`cards__push-left ${isPushLeftVisible && 'is-visible'}`} onClick={this.pushLeft}>
+                <div className={`cards__push cards__push--left ${isPushLeftVisible && 'is-visible'}`} onClick={this.pushLeft}>
                     <img src={ require('../../images/checkbox-arrow-left.png') }/>
                 </div>
-                <div className={`cards__push-right ${isPushRightVisible && 'is-visible'}`} onClick={this.pushRight}>
+                <div className={`cards__push cards__push--right ${isPushRightVisible && 'is-visible'}`} onClick={this.pushRight}>
                     <img src={ require('../../images/checkbox-arrow-right.png') }/>
                 </div>
             </div>
