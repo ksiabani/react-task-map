@@ -13,7 +13,7 @@ Below you will find some information on how to perform common tasks. You can vie
 
 ## Setup
 * Clone this repo
-* Run `npm install` or `yarn install`
+* Run `npm install` or `yarn install` (Node.js >= 8.0.0)
 * Run `npm start` or `yarn start`
 * Browse to `localhost:3000`
 
