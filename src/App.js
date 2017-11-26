@@ -40,7 +40,8 @@ class App extends Component {
                 if (response.ok) {
                     return response.json();
                 } else {
-                    throw new Error('Oops! Something went wrong...');
+                    throw new Error(`Oops! Something went wrong. 
+                    Server says: ${response.status}: ${response.statusText}.`);
                 }
             })
             .then(data => this.setState({
@@ -61,7 +62,7 @@ class App extends Component {
 
         // If something went wrong while fetching data from server, return error message
         if (error) {
-            return <p>{error.message}</p>;
+            return <div className="error">{error.message}</div>;
         }
         // Wait for fetched data before showing components. In the meantime, show a loader
         return (
