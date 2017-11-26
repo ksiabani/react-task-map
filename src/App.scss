@@ -157,7 +157,7 @@ body {
     @media (min-width: 1200px) {
       width: calc((100vw - 10px) / 4 - 4px);
     }
-    // Lift up card when active or on hover but only on desktop
+    // Highlight card when on hover (desktop only)
     // (-moz-touch-enabled: 0) is added as @media (hover: hover) won't work on FF, see:
     // https://developer.mozilla.org/en-US/docs/Web/CSS/@media/hover
     // https://bugzilla.mozilla.org/show_bug.cgi?id=1035774
@@ -168,7 +168,10 @@ body {
           color: $brand-color;
         }
       }
-      &.is-active {
+    }
+    // Highlight active card when more than one in viewport
+    @media (min-width: 768px) {
+    &.is-active {
         margin-bottom: 8px; //not possible to use translate here
         & .card__content__title {
           color: $primary-color
